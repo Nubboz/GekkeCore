@@ -1,17 +1,13 @@
-#fr1
-
 # blocks that you die if you stand on :)
-DeathBlocks:          #fr2
+DeathBlocks:
   enabled: true
   respectcollision: false
   Ytolerance: 0.01
   Xtolerance: 0.05
-  #fr3
   list:
     - barrier
     #- red_carpet
   explosion: false
-  #fr
 
 Settings:
   #how long a player must wait to execute /hide again (seconds, must be an Integer/whole number e.g. 1, 2, 3, 4. NOT 0.1, 0.5, 0.75)
@@ -29,6 +25,7 @@ Settings:
       - w
       - whisper
       - tell
+      - t
 
 
   VillagerTrades:
