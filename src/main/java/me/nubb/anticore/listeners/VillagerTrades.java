@@ -24,10 +24,8 @@ import org.bukkit.persistence.PersistentDataType;
 import io.papermc.paper.event.player.PlayerTradeEvent;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class VillagerTrades implements Listener {
 
@@ -55,7 +53,7 @@ public class VillagerTrades implements Listener {
     List<Integer> villagerxp = Arrays.asList(0,2,5,10,15,15);
 
 
-    private List<MerchantRecipe> addtrade(List<MerchantRecipe> recipes, Villager v, String tradeName, int lvl, Material result, int ammount, Material currency, int price, int chance, int maxuse) {
+    private List<MerchantRecipe> addtrade(List<MerchantRecipe> recipes, Villager v, String tradeName, int lvl, Material result, int ammount, Material currency, int price, double chance, int maxuse) {
 
         var pdc = v.getPersistentDataContainer();
 
@@ -65,9 +63,8 @@ public class VillagerTrades implements Listener {
             return recipes;
         }
 
-        if (random.nextInt(100) >= chance) {
+        if (random.nextDouble(100) >= chance*100) {
 
-            Bukkit.getLogger().info("[AntiCore] Trade chance failed: " + tradeName);
             pdc.set(tradeKey, PersistentDataType.BYTE, (byte) 2); // mark as failed
             return recipes;
         }
@@ -80,6 +77,8 @@ public class VillagerTrades implements Listener {
         pdc.set(tradeKey, PersistentDataType.BYTE, (byte) 1);
 
         recipes.add(newTrade);
+
+        Bukkit.getLogger().info("[AntiCore] Added trade " + tradeName + " for " + v.getProfession().getKey().getKey().toLowerCase());
         return recipes;
     }
 
@@ -120,18 +119,23 @@ public class VillagerTrades implements Listener {
                     ConfigurationSection trade = typeTrades.getConfigurationSection(tradeName);
                     if (trade == null) continue;
 
-                    int lvl = trade.getInt("lvl", 5);
-                    int chance = trade.getInt("chance", 100);
-                    int price = trade.getInt("price", 1);
+                    int lvl = trade.getInt("lvl");
+                    double chance = trade.getDouble("chance");
+                    int price = trade.getInt("price");
                     Material currency = Material.matchMaterial(trade.getString("currency", "EMERALD").toUpperCase());
-                    int maxuse = trade.getInt("maxuses", 7);
-                    int ammount = trade.getInt("ammount", 1);
+                    int maxuse = trade.getInt("maxuses");
+                    int ammount = trade.getInt("amount");
                     Material result = Material.matchMaterial(tradeName.toUpperCase());
+
+                    boolean anyNull = Stream.of(lvl, chance, price, currency, maxuse, ammount, result).anyMatch(Objects::isNull);
+
+                    if (anyNull) {
+                        Bukkit.getLogger().severe("[ERROR] [AntiCore] trade " + tradeName + " has NULL parameters");
+                        continue;
+                    }
 
                     if (result == null) {Bukkit.getLogger().warning("[AntiCore] Invalid result material for trade: " + tradeName); continue;}
                     recipes = addtrade(recipes, v , tradeName, lvl, result, ammount, currency,  price, chance, maxuse);
-
-                    Bukkit.getLogger().info("[AntiCore] Added trade " + tradeName + " for " + Profession);
                 }
             }
 

@@ -35,17 +35,17 @@ Settings:
     AddedTrades: {}
 #     cleric: {}
 #       gunpowder:
-#         ammount: 5
+#         amount: 5
 #         price: 3
 #         currency: emerald
-#         chance: 50%
+#         chance: 0.5
 #         maxuses: 25
 #         lvl: 5
 #       redstone:
-#         ammount: 4
+#         amount: 4
 #         price: 2
 #         currency: emerald
-#         chance: 70%
+#         chance: 0.7 #= 70%
 #         maxuses: 12
 #         lvl: 3
 
