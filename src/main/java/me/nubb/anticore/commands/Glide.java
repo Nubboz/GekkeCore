@@ -1,10 +1,8 @@
 package me.nubb.anticore.commands;
 
 import me.nubb.anticore.AntiCore;
-import me.nubb.anticore.AntiCore;
 import me.nubb.anticore.Util.KeyUtils;
 import me.nubb.anticore.files.MessagesConfig;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -15,8 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityToggleGlideEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.checkerframework.checker.units.qual.Prefix;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

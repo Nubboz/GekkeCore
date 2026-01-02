@@ -1,6 +1,5 @@
 package me.nubb.anticore.Util;
 
-import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 
 import java.time.Instant;
