@@ -63,41 +63,42 @@ public final class AntiCore extends JavaPlugin implements Listener {
         // Create instances once
         Glide glide = new Glide(this);
         DiscoFeet disco = new DiscoFeet(this);
-        Vanish vanish = new Vanish(this);
         Deathblocks deathblocks = new Deathblocks(this);
         Hide hide = new Hide(this);
         Movingplatform movePlatform = new Movingplatform(this);
         Vtrades vtrades = new Vtrades(this);
+        Vanish vanish = new Vanish(this);
 
         // Set executor & tab completer using same instance
         /*getCommand("glide").setExecutor(glide);
         getCommand("glide").setTabCompleter(glide);
 
         getCommand("disco").setExecutor(disco);
-        getCommand("disco").setTabCompleter(disco);*/
+        getCommand("disco").setTabCompleter(disco);
 
-        getCommand("vanish").setExecutor(vanish);
-        getCommand("vanish").setTabCompleter(vanish);
-
-        /*getCommand("deathblocks").setExecutor(deathblocks);
+        getCommand("deathblocks").setExecutor(deathblocks);
         getCommand("deathblocks").setTabCompleter(deathblocks);
 
         getCommand("hide").setExecutor(hide);
-        getCommand("hide").setTabCompleter(hide);*/
+        getCommand("hide").setTabCompleter(hide);
+        getCommand("moveplatform").setExecutor(movePlatform); */
 
         getCommand("Vtrades").setExecutor(vtrades);
         getCommand("Vtrades").setTabCompleter(vtrades);
 
-        //getCommand("moveplatform").setExecutor(movePlatform);
+
+
+        getCommand("vanish").setExecutor(vanish);
+        getCommand("vanish").setTabCompleter(vanish);
     }
 
 
     public void registerListeners() {
-        getServer().getPluginManager().registerEvents(new DiscoFeet(this), this);
+        /*getServer().getPluginManager().registerEvents(new DiscoFeet(this), this);
         getServer().getPluginManager().registerEvents(new DeathBlocks(this), this);
         getServer().getPluginManager().registerEvents(new DeathMessageManager(this), this);
+        getServer().getPluginManager().registerEvents(new Glide(this), this);*/
         getServer().getPluginManager().registerEvents(new JoinQuit(this), this);
-        getServer().getPluginManager().registerEvents(new Glide(this), this);
         getServer().getPluginManager().registerEvents(new Vanish(this), this);
         getServer().getPluginManager().registerEvents(new VillagerTrades(this), this);
         getServer().getPluginManager().registerEvents(this, this);
