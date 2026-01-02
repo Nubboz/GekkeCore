@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="AntiCore:jar">
+    <output-path>$USER_HOME$/Downloads/myplugins/MinecraftPlugins</output-path>
+    <root id="archive" name="AntiCore.jar">
+      <element id="module-output" name="AntiCore" />
+    </root>
+  </artifact>
+</component>

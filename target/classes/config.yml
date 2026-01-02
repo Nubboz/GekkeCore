@@ -1,0 +1,57 @@
+#fr1
+
+# blocks that you die if you stand on :)
+DeathBlocks:          #fr2
+  enabled: true
+  respectcollision: false
+  Ytolerance: 0.01
+  Xtolerance: 0.05
+  #fr3
+  list:
+    - barrier
+    #- red_carpet
+  explosion: false
+  #fr
+
+Settings:
+  #how long a player must wait to execute /hide again (seconds, must be an Integer/whole number e.g. 1, 2, 3, 4. NOT 0.1, 0.5, 0.75)
+  HideCooldown: 3
+  Vanish:
+    FakeLeaveMessage: "&e%player% left the game"
+    FakeJoinMessage: "&e%player% joined the game"
+    SilentJoinMessage: "&8%player% &3Silently joined the game"
+    HideFromCommands: true
+    HiddenCommands:
+      - tpa
+      - msg
+      - message
+      - tpahere
+      - w
+      - whisper
+      - tell
+
+
+  VillagerTrades:
+    DemandPenalty: true
+    InstantRestock: false
+
+    AddedTrades: {}
+#     cleric: {}
+#       gunpowder:
+#         ammount: 5
+#         price: 3
+#         currency: emerald
+#         chance: 50%
+#         maxuses: 25
+#         lvl: 5
+#       redstone:
+#         ammount: 4
+#         price: 2
+#         currency: emerald
+#         chance: 70%
+#         maxuses: 12
+#         lvl: 3
+
+# Manage those who use xaeros minimap
+Xaero:
+  mode: none # (fairplay/netheronly/disabled/none)

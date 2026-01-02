@@ -1,0 +1,56 @@
+name: AntiCore
+version: '1.0-SNAPSHOT'
+main: me.nubb.anticore.AntiCore
+api-version: '1.21.8'
+folia-supported: true
+authors: [Nubb__]
+softdepend: [ ProtocolLib, WorldEdit ]
+description: to cure boredom
+
+commands:
+
+  AntiCore:
+    description: "AntiCore!"
+    usage: "Usage: /anticore help"
+
+#  MovePlatform:
+#    description: "create smooth platforms"
+#    permission: anticore.moveplatform.use
+#    usage: "Usage: /moveplatform set <block>"
+#
+#  Glide:
+#    description: "Glide without an elytra!"
+#    permission: anticore.glide.use
+#    permission-message: "You don't have permission to execute this command"
+#    usage: "Usage: /glide <player>"
+
+#  Hide:
+#    description: "Hide other players!"
+#    usage: "Usage: /hide"
+#    permission: anticore.hide.use
+#    permission-message: "§cYou dont have permission to execute this command!"
+
+  Vanish:
+    description: "Hide yourself from players!"
+    usage: "Usage: /vanish <player>"
+    permission: anticore.vanish.use
+    permission-message: "§cYou dont have permission to execute this command!"
+
+  Vtrades:
+    description: "Manage Villager trading"
+    usage: "Usage: /vtrades setinstantrestock/setdemandpenalty true/false"
+    permission: anticore.vtrades.manage
+    permission-message: "§cYou dont have permission to execute this command!"
+
+
+#  Disco:
+#    description: "disco feet!"
+#    permission: anticore.disco.use
+#    permission-message: "You don't have permission to execute this command"
+#    usage: "Usage: /disco <player>"
+#
+#  Deathblocks:
+#    description: "Touch them and you die!"
+#    permission: anticore.deathblocks.use
+#    permission-message: "You don't have permission to execute this command"
+#    usage: "Usage: /deathblocks add/remove/toggle/list"
