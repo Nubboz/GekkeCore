@@ -1,17 +1,6 @@
-# blocks that you die if you stand on :)
-DeathBlocks:
-  enabled: true
-  respectcollision: false
-  Ytolerance: 0.01
-  Xtolerance: 0.05
-  list:
-    - barrier
-    #- red_carpet
-  explosion: false
 
 Settings:
   #how long a player must wait to execute /hide again (seconds, must be an Integer/whole number e.g. 1, 2, 3, 4. NOT 0.1, 0.5, 0.75)
-  HideCooldown: 3
   Vanish:
     FakeLeaveMessage: "&e%player% left the game"
     FakeJoinMessage: "&e%player% joined the game"

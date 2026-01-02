@@ -1,4 +1,4 @@
-Prefix: "&8[AntiCore] "
+Prefix: "&8[GekkeCore] "
 
 #//////////////////////////////////
 #//         VARIABLES            //
@@ -23,45 +23,6 @@ Other:
   Permission: "&cYou dont have permission to execute this command"
   OnlyPlayers: "&7Only players can execute this command"
 
-MuteChat:
-  MuteChat: '&cChat has been muted by %sender%'
-  UnMuteChat: "&aChat has been unmuted by %sender%"
-  Muted: "&cChat is currently Muted"
-  Usage: "&cUsage&8: &7/mutechat"
-
-Hide:
-  All: "&fVisibility &7now set to &fALL"
-  Staff: "&fVisibility &7now set to &fSTAFF"
-  Usage: "&cUsage&8: &7/hide"
-  Wait: "&cYou cant hide players again for another %time% seconds"
-
-Glide:
-  GlideMessage: "&f%player% &7is now &fgliding"
-  UnGlideMessage: "&f%player% &7is no longer &fgliding"
-  GlidedMessage: "&fYou &7are now &fgliding"
-  UnGlidedMessage: "&fYou &7are no longer &fgliding"
-  GlidedAll: "&fAll players &7are now &fgliding"
-  UnGlidedAll: "&fAll players &7are no longer &fgliding"
-  GlideUsage: "&cUsage&8: &7/glide <player>/*"
-
-Disco:
-  DiscoMessage: "&f%player% &7now has &fdisco feet"
-  UnDiscoMessage: "&f%player% &7no longer has &fdisco feet"
-  DiscoedMessage: "&fYou &7now have &fdisco feet"
-  UnDiscoedMessage: "&fYou &7no longer have &fdisco feet"
-  DiscoedAll: "&fAll players &7now have &fdisco feet"
-  UnDiscoedAll: "&fAll players &7no longer have &fdisco feet"
-  DiscoUsage: "&cUsage&8: &7/disco <player>/*"
-
-Deathblock:
-  AddMessage: "&7Added &f%result% to the list"
-  RemoveMessage: "&7removed &f%result% from the list"
-  ToggleMessage: "&7Deathblocks are now &f%result%"
-  CollideMessage: "&7RespectCollide is now &f%result%"
-  ListMessage: "&7Deathblocks:\n &f%list%"
-  Deathmsg: "&7%player% &fdidnt watch their step"
-  Usage: "&cUsage&8: &7/deathblocks add/remove/toggle/list"
-
 Vanish:
   VanishedMessage: "&fYou &7are now &fvanished"
   UnvanishedMessage: "&fYou &7are no longer &fvanished"
@@ -69,8 +30,4 @@ Vanish:
   OtherUnvanishedMessage: "&f%player% &7is no longer &fvanished"
   VanishUsage: "&cUsage&8: &7/vanish <player>"
   NotOnline: "&cError: &4Player not found."
-
-Vtrades:
-  SetInstaRestock:
-  SetDemandPenalty:
 
