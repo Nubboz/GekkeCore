@@ -3,6 +3,7 @@
     <output-path>$USER_HOME$/Downloads/myplugins/MinecraftPlugins</output-path>
     <root id="archive" name="GekkeCore.jar">
       <element id="module-output" name="GekkeCore" />
+      <element id="library" level="project" name="Maven: dev.dejvokep:boosted-yaml:1.3.5" />
     </root>
   </artifact>
 </component>

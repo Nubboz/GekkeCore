@@ -1,0 +1,11 @@
+me\nubb\gekkecore\commands\Vanish.class
+me\nubb\gekkecore\GekkeCore.class
+me\nubb\gekkecore\commands\Vtrades.class
+me\nubb\gekkecore\listeners\VillagerTrades.class
+me\nubb\gekkecore\listeners\JoinQuit.class
+me\nubb\gekkecore\files\Config.class
+me\nubb\gekkecore\listeners\DeathMessageManager.class
+me\nubb\gekkecore\Util\KeyBuilder.class
+me\nubb\gekkecore\commands\Socials.class
+me\nubb\gekkecore\files\MessagesConfig.class
+me\nubb\gekkecore\Util\KeyUtils.class

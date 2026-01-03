@@ -132,7 +132,7 @@ public final class GekkeCore extends JavaPlugin implements Listener {
                                 &3Help:
                                  &f/gekkecore reload &7#Reloads all configs
                                  &f/Vanish <player> &7#Puts specified player in vanish mode
-                                 &f/Vtrades <setinstantrestock/setdemandpenalty> true/false &7#lowk does what it says
+                                 &f/Vtrades <setinstantrestock/setdemandpenalty> true/false &7#Edit villager trading behaviour
                                 
                                                      &f<<1/1>>
                                 """);
