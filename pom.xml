@@ -22,7 +22,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.11.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -31,7 +31,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -40,10 +40,18 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <relocations>
+                                <!-- Optional: relocate BoostedYAML to avoid conflicts -->
+                                <relocation>
+                                    <pattern>dev.dejvokep.boostedyaml</pattern>
+                                    <shadedPattern>me.nubb.shaded.boostedyaml</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
         <resources>
             <resource>
