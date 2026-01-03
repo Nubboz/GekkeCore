@@ -24,3 +24,10 @@ commands:
     usage: "Usage: /vtrades setinstantrestock/setdemandpenalty true/false"
     permission: gekkecore.vtrades.manage
     permission-message: "§cYou dont have permission to execute this command!"
+
+  Socials:
+    aliases: [Discord, Youtube, Twitter, Twitch, instagram]
+    description: "Manage Villager trading"
+    usage: "Usage: /socials"
+    permission: gekkecore.socials
+    permission-message: "§cYou dont have permission to execute this command!"

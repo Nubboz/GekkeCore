@@ -31,3 +31,12 @@ Vanish:
   VanishUsage: "&cUsage&8: &7/vanish <player>"
   NotOnline: "&cError: &4Player not found."
 
+#Set Any socials you don't want to "none"
+
+Socials:
+  Discord: '[&bDiscord&f] <&a&nClick here>%discord.gg/7SB6VbKsjT% &fto join'
+  Twitch: '[&5Twitch&f] <&ntwitch.tv/gekkehert>%twitch.tv/gekkehert%'
+  Youtube: '[&cYoutube&f] <&nyoutube.com/@GekkeHert>%youtube.com/@GekkeHert%'
+  Twitter: '[&7Twitter&f] <&ntwitter.com/example>%twitter.com/example%'
+  Instagram: 'none'
+  Other: 'testing fr'

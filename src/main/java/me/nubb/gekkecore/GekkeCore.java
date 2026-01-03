@@ -1,11 +1,13 @@
 package me.nubb.gekkecore;
 
 import me.nubb.gekkecore.Util.KeyUtils;
-import me.nubb.gekkecore.commands.*;
+import me.nubb.gekkecore.commands.Socials;
+import me.nubb.gekkecore.commands.Vanish;
+import me.nubb.gekkecore.commands.Vtrades;
 import me.nubb.gekkecore.files.Config;
 import me.nubb.gekkecore.files.MessagesConfig;
-import me.nubb.gekkecore.listeners.VillagerTrades;
 import me.nubb.gekkecore.listeners.JoinQuit;
+import me.nubb.gekkecore.listeners.VillagerTrades;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,40 +17,49 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.TabCompleteEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public final class GekkeCore extends JavaPlugin implements Listener {
 
+
+    Socials socials = new Socials(this);
+
     @Override
     public void onEnable() {
-        Config.createConfig();
-        MessagesConfig.createConfig();
-        MessagesConfig.updateConfig();
-        MessagesConfig.reloadConfig();
+        try {
+            Config.load(this);
+            MessagesConfig.load(this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         registerCommands();
         registerListeners();
         // Plugin startup logic
 
-        KeyUtils.sms(getServer().getConsoleSender(), "\n" +
-                "&8   [&3GekkeCore&8] &av: 0\n" +
-                "&8    Loaded\n" +
-                "\n");
+        KeyUtils.sms(getServer().getConsoleSender(), """
+                
+                &8   [&3GekkeCore&8] &av: 0
+                &8    Loaded
+                
+                """);
+
+        socials.startSocialLoop();
     }
 
     @Override
     public void onDisable() {
-        Config.reloadConfig();
-        Config.saveCf();
-        //Config.updateConfig();
 
-        KeyUtils.sms(getServer().getConsoleSender(), "\n" +
-                "&8   [&3GekkeCore&8] &av: 0\n" +
-                "&8    Unloaded\n" +
-                "\n");
+        KeyUtils.sms(getServer().getConsoleSender(), """
+                
+                &8   [&3GekkeCore&8] &av: 0
+                &8    Unloaded
+                
+                """);
     }
 
     public void registerCommands() {
@@ -57,12 +68,15 @@ public final class GekkeCore extends JavaPlugin implements Listener {
 
         Vtrades vtrades = new Vtrades(this);
         Vanish vanish = new Vanish(this);
+        Socials socials = new Socials(this);
 
         getCommand("Vtrades").setExecutor(vtrades);
         getCommand("Vtrades").setTabCompleter(vtrades);
 
         getCommand("vanish").setExecutor(vanish);
         getCommand("vanish").setTabCompleter(vanish);
+
+        getCommand("Socials").setExecutor(socials);
     }
 
 
@@ -78,23 +92,29 @@ public final class GekkeCore extends JavaPlugin implements Listener {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         if (label.equalsIgnoreCase("gekkecore")) {
             if (args.length == 0) {
-                KeyUtils.sms(sender,  "\n&3GekkeCore" +
-                        "\n " +
-                        "\n &3Version: &f0 &7(Unreleased)" +
-                        "\n &3Author: &fNubb__" +
-                        "\n &3Discord: &fnubb__" +
-                        "\n &3Help: &f/gekkecore help" +
-                        "\n " +
-                        "\n &3Disclaimer!" +
-                        "\n  &fGekkeCore is still in beta so please report any issues or suggestions to the discord above." +
-                        "\n ");
+                KeyUtils.sms(sender, """
+                        
+                        &3GekkeCore
+                        
+                         &3Version: &f0 &7(Unreleased)
+                         &3Author: &fNubb__
+                         &3Discord: &fnubb__
+                         &3Help: &f/gekkecore help
+                        
+                        &3Disclaimer!
+                         &fGekkeCore is still in beta so please report any issues or suggestions to the discord above.
+                        
+                        """);
             } else if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("reload")) {
                     if(sender.hasPermission("gekkecore.reload")) {
-                        Config.reloadConfig();
-                        MessagesConfig.reloadConfig();
-                        MessagesConfig.updateConfig();
-                        MessagesConfig.reloadConfig();
+                        try {
+                            Config.reload();
+                            MessagesConfig.reload();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        socials.startSocialLoop();
                         for (Player online : Bukkit.getOnlinePlayers()) {
                             JoinQuit.handlePlayerMode(online, online.getWorld().getName(), null);
                         }
@@ -104,30 +124,42 @@ public final class GekkeCore extends JavaPlugin implements Listener {
                     }
                 }else if(args[0].equalsIgnoreCase("help")){
                     if(sender instanceof Player) {
-                        Player player = (Player) sender;
-                        if (player.hasPermission("gekkecore.admin")) {
-                            KeyUtils.sms(player, "\n&3GekkeCore &fby &3Nubb__" +
-                                    "\n " +
-                                    "\n&3Help:" +
-                                    "\n &f/gekkecore reload &7#Reloads all configs" +
-                                    "\n &f/Vanish <player> &7#Puts specified player in vanish mode" +
-                                    "\n &f/Vtrades <setinstantrestock/setdemandpenalty> true/false &7#lowk does what it says" +
-                                    "\n                     &f<<1/1>>");
+                        if (sender.hasPermission("gekkecore.admin")) {
+                            KeyUtils.sms(sender, """
+                                
+                                &3GekkeCore &fby &3Nubb__
+                                
+                                &3Help:
+                                 &f/gekkecore reload &7#Reloads all configs
+                                 &f/Vanish <player> &7#Puts specified player in vanish mode
+                                 &f/Vtrades <setinstantrestock/setdemandpenalty> true/false &7#lowk does what it says
+                                
+                                                     &f<<1/1>>
+                                """);
                         }else{
-                            KeyUtils.sms(player, "\n&3GekkeCore &fby &3Nubb__" +
-                                    "\n " +
-                                    "\n&3Help:" +
-                                    "\n &7no player commands" +
-                                    "\n                     &f<<1/1>>");
+                            KeyUtils.sms(sender, """
+                                    
+                                    &3GekkeCore &fby &3Nubb__
+                                    
+                                    &3Help:
+                                     &7no player commands
+                                    
+                                                         &f<<1/1>>
+                                    """);
                         }
                     }else{
-                        KeyUtils.sms(sender, "\n&3GekkeCore &fby &3Nubb__" +
-                                "\n " +
-                                "\n&3Help:" +
-                                "\n &f/gekkecore reload &7#Reloads all configs" +
-                                "\n &f/Vanish <player> &7#Puts specified player in vanish mode" +
-                                "\n &f/Vtrades <setinstantrestock/setdemandpenalty> true/false &7#lowk does what it says" +
-                                "\n                     &f<<1/1>>");
+                        KeyUtils.sms(sender, """
+                                
+                                &3GekkeCore &fby &3Nubb__
+                                
+                                &3Help:
+                                
+                                 &f/gekkecore reload &7#Reloads all configs
+                                 &f/Vanish <player> &7#Puts specified player in vanish mode
+                                 &f/Vtrades <setinstantrestock/setdemandpenalty> true/false &7#lowk does what it says
+                                
+                                                     &f<<1/1>>
+                                """);
                     }
                 }
             }
@@ -136,7 +168,7 @@ public final class GekkeCore extends JavaPlugin implements Listener {
 
     //TAB COMPLETION
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @NonNull List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         List<String> gekkecoretab = new ArrayList<>();
         if (args.length == 1){
             gekkecoretab.add("reload");
@@ -146,16 +178,15 @@ public final class GekkeCore extends JavaPlugin implements Listener {
 
     @EventHandler
     public void ontabcomplete(TabCompleteEvent event) {
-        if (!(event.getSender() instanceof Player)) return;
 
-        Player sender = (Player) event.getSender();
+        CommandSender sender = event.getSender();
 
         Iterator<String> it = event.getCompletions().iterator();
         while (it.hasNext()) {
             String completion = it.next();
             Player target = Bukkit.getPlayerExact(completion);
 
-            if (target != null && Vanish.isVanished(target) && !sender.hasPermission("gekkecore.vanish.see")) {
+            if (Vanish.isVanished(target) && !sender.hasPermission("gekkecore.vanish.see")) {
                 it.remove();
             }
         }

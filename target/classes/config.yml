@@ -1,10 +1,15 @@
 
 Settings:
-  #how long a player must wait to execute /hide again (seconds, must be an Integer/whole number e.g. 1, 2, 3, 4. NOT 0.1, 0.5, 0.75)
+  #seconds before socials are advertised (5 mins)
+  Socialstimer: 300
+  Socialslist:
+    - youtube
+    - discord
+    - twitch
   Vanish:
     FakeLeaveMessage: "&e%player% left the game"
     FakeJoinMessage: "&e%player% joined the game"
-    SilentJoinMessage: "&8%player% &3Silently joined the game"
+    SilentJoinMessage: "&8%player% &3Silently joined the game" #only admins can see
     HideFromCommands: true
     HiddenCommands:
       - tpa

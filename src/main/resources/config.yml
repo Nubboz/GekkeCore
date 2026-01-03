@@ -1,9 +1,15 @@
 
 Settings:
+  #seconds before socials are advertised (5 mins)
+  Socialstimer: 300
+  Socialslist:
+    - youtube
+    - discord
+    - twitch
   Vanish:
     FakeLeaveMessage: "&e%player% left the game"
     FakeJoinMessage: "&e%player% joined the game"
-    SilentJoinMessage: "&8%player% &3Silently joined the game"
+    SilentJoinMessage: "&8%player% &3Silently joined the game" #only admins can see
     HideFromCommands: true
     HiddenCommands:
       - tpa
