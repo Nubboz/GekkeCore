@@ -1,93 +1,40 @@
 package me.nubb.gekkecore.files;
 
+import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
+import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
+import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
+import dev.dejvokep.boostedyaml.settings.updater.UpdaterSettings;
 import me.nubb.gekkecore.GekkeCore;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 public class Config {
 
-    private static final GekkeCore plugin = GekkeCore.getPlugin(GekkeCore.class);
+    private static YamlDocument config;
 
-    private static File configFile;
-    private static FileConfiguration config;
+    public static void load(GekkeCore plugin) throws IOException {
 
-    /** Get the loaded config */
-    public static FileConfiguration getConfig() {
+        config = YamlDocument.create(
+                new File(plugin.getDataFolder(), "config.yml"),   // File on disk
+                plugin.getResource("config.yml"),                 // Default in JAR
+                GeneralSettings.builder().setUseDefaults(true).build(),
+                LoaderSettings.builder().build(),
+                DumperSettings.builder().build(),
+                UpdaterSettings.builder().setAutoSave(true).build() // <-- auto-merge + save
+        );
+    }
+
+    public static YamlDocument get() {
         return config;
     }
 
-    /** Create or load config with defaults merged */
-    public static void createConfig() {
-        configFile = new File(plugin.getDataFolder(), "config.yml");
-
-        // Save default resource if missing
-        if (!configFile.exists()) {
-            plugin.saveResource("config.yml", false);
-        }
-
-        config = new YamlConfiguration();
-        try {
-            config.load(configFile); // load existing config
-        } catch (IOException | InvalidConfigurationException e) {
-            Bukkit.getConsoleSender().sendMessage("§c[Config] Failed to load config!");
-            e.printStackTrace();
-        }
-
-        // Merge defaults from default config.yml recursively
-        mergeDefaults();
-
-        saveCf(); // Save to file so missing keys appear
+    public static void save() throws IOException {
+        config.save();
     }
 
-    /** Reload config and merge defaults */
-    public static void reloadConfig() {
-        try {
-            config.load(configFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            Bukkit.getConsoleSender().sendMessage("§c[Config] Failed to reload config!");
-            e.printStackTrace();
-        }
-
-        mergeDefaults();
-        saveCf();
-    }
-
-    /** Save config */
-    public static boolean saveCf() {
-        try {
-            config.save(configFile);
-            return true;
-        } catch (IOException e) {
-            Bukkit.getConsoleSender().sendMessage("§c[Config] Could not save config!");
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /** Merge defaults from plugin resource recursively */
-    private static void mergeDefaults() {
-        try (Reader defStream = new InputStreamReader(plugin.getResource("config.yml"))) {
-            if (defStream == null) return;
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defStream);
-            mergeSections(defConfig, (YamlConfiguration) config);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /** Recursive merge helper */
-    private static void mergeSections(YamlConfiguration defaults, YamlConfiguration target) {
-        for (String key : defaults.getKeys(true)) {
-            if (!target.contains(key)) {
-                target.set(key, defaults.get(key));
-            }
-        }
+    public static void reload() throws IOException {
+        config.reload();   // Re-reads + re-merges defaults
     }
 }

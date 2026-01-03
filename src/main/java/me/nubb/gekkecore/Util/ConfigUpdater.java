@@ -1,3 +1,4 @@
+/*
 package me.nubb.gekkecore.Util;
 
 import com.google.common.base.Preconditions;
@@ -174,12 +175,14 @@ public class ConfigUpdater {
         if (keys.length == 1) {
             if (value instanceof Map)
                 return root;
-	   /*     if (value == null) {
+	   */
+/*     if (value == null) {
                 Map<Object, Object>  map= new HashMap<>();
                 map.put(key,"{}");
                 System.out.println("key " + key);
                 return  map;
-            }*/
+            }*//*
+
             throw new IllegalArgumentException("Ignored sections must be a ConfigurationSection not a value!");
         }
 
@@ -306,7 +309,8 @@ public class ConfigUpdater {
         return null;
     }
 
-    /**
+    */
+/**
      * Writes the current value with the provided trailing key to the provided writer.
      *
      * @param parserConfig   The parser configuration to use for writing the YAML value.
@@ -315,7 +319,8 @@ public class ConfigUpdater {
      * @param trailingKey    The trailing key for the YAML value.
      * @param currentValue   The current value to write as YAML.
      * @throws IOException If an I/O error occurs while writing the YAML value.
-     */
+     *//*
+
     private static void writeYamlValue(final FileConfiguration parserConfig, final BufferedWriter bufferedWriter, final String indents, final String trailingKey, final Object currentValue) throws IOException {
         String yaml;
 
@@ -343,7 +348,8 @@ public class ConfigUpdater {
     }
 
 
-    /**
+    */
+/**
      * Writes the value associated with the ignored section to the provided writer,
      * if it exists in the ignoredSectionsValues map.
      *
@@ -351,7 +357,8 @@ public class ConfigUpdater {
      * @param bufferedWriter        The writer to write the value to.
      * @param fullKey               The full key to search for in the ignoredSectionsValues map.
      * @throws IOException If an I/O error occurs while writing the value.
-     */
+     *//*
+
     private static boolean writeIgnoredSectionValueIfExists(final Map<String, String> ignoredSectionsValues, final BufferedWriter bufferedWriter, final String fullKey) throws IOException {
         String ignored = ignoredSectionsValues.get(fullKey);
         if (ignored != null) {
@@ -366,7 +373,8 @@ public class ConfigUpdater {
         return false;
     }
 
-    /**
+    */
+/**
      * Writes a configuration section with the provided trailing key and the current value to the provided writer.
      *
      * @param bufferedWriter The writer to write the configuration section to.
@@ -374,7 +382,8 @@ public class ConfigUpdater {
      * @param trailingKey    The trailing key for the configuration section.
      * @param configurationSection   The current value of the configuration section.
      * @throws IOException If an I/O error occurs while writing the configuration section.
-     */
+     *//*
+
     private static void writeConfigurationSection(final BufferedWriter bufferedWriter, final String indents, final String trailingKey, final ConfigurationSection configurationSection) throws IOException {
         bufferedWriter.write(indents + trailingKey + ":");
         if (!(configurationSection).getKeys(false).isEmpty()) {
@@ -383,4 +392,4 @@ public class ConfigUpdater {
             bufferedWriter.write(" {}\n");
         }
     }
-}
+}*/

@@ -46,7 +46,7 @@ public class Vanish implements CommandExecutor, TabCompleter, Listener {
     }
 
     private String getMessage(String name) {
-        return MessagesConfig.getConfig().getString(name);
+        return MessagesConfig.get().getString(name);
     }
 
     @Override
@@ -62,8 +62,8 @@ public class Vanish implements CommandExecutor, TabCompleter, Listener {
         String otherUnvanishedMsg = getMessage("Vanish.OtherUnvanishedMessage");
         String playerDoesNotExist = getMessage("Other.Does-Not-Exist");
         String playeronly = getMessage("Other.OnlyPlayers");
-        String joinmsg = Config.getConfig().getString("Settings.Vanish.FakeJoinMessage");
-        String leavemsg = Config.getConfig().getString("Settings.Vanish.FakeLeaveMessage");
+        String joinmsg = Config.get().getString("Settings.Vanish.FakeJoinMessage");
+        String leavemsg = Config.get().getString("Settings.Vanish.FakeLeaveMessage");
 
         if (!(sender instanceof Player) && args.length < 1) {
             KeyUtils.sms(sender, playeronly);
@@ -105,8 +105,8 @@ public class Vanish implements CommandExecutor, TabCompleter, Listener {
     private void toggleVanish(Player target) {
         boolean state = isVanished(target);
 
-        String joinmsg = Config.getConfig().getString("Settings.Vanish.FakeJoinMessage");
-        String leavemsg = Config.getConfig().getString("Settings.Vanish.FakeLeaveMessage");
+        String joinmsg = Config.get().getString("Settings.Vanish.FakeJoinMessage");
+        String leavemsg = Config.get().getString("Settings.Vanish.FakeLeaveMessage");
 
         if (state) {
             vanished.remove(target.getUniqueId());
@@ -126,10 +126,10 @@ public class Vanish implements CommandExecutor, TabCompleter, Listener {
 
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event) {
-        if (!Config.getConfig().getBoolean("Settings.Vanish.HideFromCommands")){
+        if (!Config.get().getBoolean("Settings.Vanish.HideFromCommands")){
             return;
         }
-        List<String> hiddenCommands = Config.getConfig().getStringList("Settings.Vanish.HiddenCommands");
+        List<String> hiddenCommands = Config.get().getStringList("Settings.Vanish.HiddenCommands");
         String msg = event.getMessage();
         if (!msg.startsWith("/")) return;
 
@@ -160,9 +160,7 @@ public class Vanish implements CommandExecutor, TabCompleter, Listener {
                     && !event.getPlayer().hasPermission("gekkecore.vanish.see"))) {
 
                 event.setCancelled(true);
-                KeyUtils.sms(event.getPlayer(),
-                        KeyUtils.ReplaceVariable(offlineMsg, event.getPlayer(), arg));
-                return;
+                KeyUtils.sms(event.getPlayer(), KeyUtils.ReplaceVariable(offlineMsg, event.getPlayer(), arg));
             }
     }
 

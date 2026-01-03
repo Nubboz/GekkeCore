@@ -1,12 +1,11 @@
 package me.nubb.gekkecore.listeners;
 
 import me.nubb.gekkecore.GekkeCore;
-import me.nubb.gekkecore.commands.Vanish;
 import me.nubb.gekkecore.Util.KeyUtils;
+import me.nubb.gekkecore.commands.Vanish;
 import me.nubb.gekkecore.files.Config;
 import me.nubb.gekkecore.files.MessagesConfig;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +21,7 @@ public class JoinQuit implements Listener {
     }
 
     private String getMessage(String path) {
-        return MessagesConfig.getConfig().getString(path);
+        return MessagesConfig.get().getString(path);
     }
 
     @EventHandler
@@ -44,7 +43,7 @@ public class JoinQuit implements Listener {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.hasPermission("gekkecore.vanish.see")) {
 
-                    String joinMsg = KeyUtils.ReplaceVariable(Config.getConfig().getString("Settings.Vanish.SilentJoinMessage"), p, player.getName());
+                    String joinMsg = KeyUtils.ReplaceVariable( Config.get().getString("Settings.Vanish.SilentJoinMessage"), p, player.getName());
                     p.sendMessage(joinMsg);
                 }
             }
@@ -66,9 +65,8 @@ public class JoinQuit implements Listener {
             return;
         }
 
-        FileConfiguration config = Config.getConfig();
-        String defaultMode = config.getString("Xaero.mode", "none").toLowerCase();
-        String toWorldMode = config.getString("worldModes." + toWorldName, defaultMode).toLowerCase();
+        String defaultMode = Config.get().getString("Xaero.mode", "none").toLowerCase();
+        String toWorldMode = Config.get().getString("worldModes." + toWorldName, defaultMode).toLowerCase();
         //String fromWorldMode = fromWorldName != null
         //        ? config.getString("worldModes." + fromWorldName, defaultMode).toLowerCase()
         //        : "none";

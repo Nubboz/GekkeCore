@@ -1,3 +1,4 @@
+/*
 package me.nubb.gekkecore.Util;
 
 import org.bukkit.block.BlockState;
@@ -22,3 +23,4 @@ public class BlockStateInfo {
     }
 }
 
+*/

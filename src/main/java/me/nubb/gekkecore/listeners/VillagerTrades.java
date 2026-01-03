@@ -1,11 +1,11 @@
 package me.nubb.gekkecore.listeners;
 
+import dev.dejvokep.boostedyaml.block.implementation.Section;
 import me.nubb.gekkecore.GekkeCore;
 import me.nubb.gekkecore.files.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -40,7 +40,7 @@ public class VillagerTrades implements Listener {
 
 
 
-        boolean instantRestock = Config.getConfig().getBoolean("Settings.VillagerTrades.InstantRestock");
+        boolean instantRestock = Config.get().getBoolean("Settings.VillagerTrades.InstantRestock");
     }*/
     List<Integer> villagerxp = Arrays.asList(0,2,5,10,15,15);
 
@@ -83,8 +83,8 @@ public class VillagerTrades implements Listener {
 
         List<MerchantRecipe> recipes = new ArrayList<>(v.getRecipes());
 
-        boolean demandPenalty = Config.getConfig().getBoolean("Settings.VillagerTrades.DemandPenalty");
-        boolean instantRestock = Config.getConfig().getBoolean("Settings.VillagerTrades.InstantRestock");
+        boolean demandPenalty = Config.get().getBoolean("Settings.VillagerTrades.DemandPenalty");
+        boolean instantRestock = Config.get().getBoolean("Settings.VillagerTrades.InstantRestock");
 
         for (MerchantRecipe recipe : recipes) {
             if (!demandPenalty) recipe.setDemand(0);
@@ -95,20 +95,22 @@ public class VillagerTrades implements Listener {
         }
 
         String Profession = v.getProfession().getKey().getKey().toLowerCase();
-        ConfigurationSection tradesConfig = Config.getConfig().getConfigurationSection("Settings.VillagerTrades.AddedTrades");
+        Section tradesConfig = Config.get().getSection("Settings.VillagerTrades.AddedTrades");
 
         if (tradesConfig != null) {
 
             var pdc = v.getPersistentDataContainer();
             List<String> configKeys = new ArrayList<>();
 
-            if (tradesConfig.isConfigurationSection(Profession)) {
-                ConfigurationSection typeTrades = tradesConfig.getConfigurationSection(Profession);
+            if (tradesConfig.isSection(Profession)) {
+                Section typeTrades = tradesConfig.getSection(Profession);
 
-                for (String tradeName : typeTrades.getKeys(false)) {
+                for (Object key : typeTrades.getKeys()) {
+                    String tradeName = key.toString();
+                    Bukkit.getLogger().info(tradeName);
                     configKeys.add(tradeName);
 
-                    ConfigurationSection trade = typeTrades.getConfigurationSection(tradeName);
+                    Section trade = typeTrades.getSection(tradeName);
                     if (trade == null) continue;
 
                     int lvl = trade.getInt("lvl");

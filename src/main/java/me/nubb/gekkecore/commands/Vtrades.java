@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,8 +29,8 @@ public class Vtrades implements TabExecutor {
 // Shortcut helper
 // -----------------------
     private String formatMsg(CommandSender sender, String path, Player target, String result, String list) {
-        String prefix = MessagesConfig.getConfig().getString("Prefix");
-        String message = MessagesConfig.getConfig().getString(path) == null ? path : MessagesConfig.getConfig().getString(path);
+        String prefix = MessagesConfig.get().getString("Prefix");
+        String message = MessagesConfig.get().getString(path) == null ? path : MessagesConfig.get().getString(path);
         return KeyUtils.ReplaceVariable(message, sender,
                 target != null ? target.getName() : null, result, list);
     }
@@ -45,7 +46,7 @@ public class Vtrades implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
 
-        String Prefix = MessagesConfig.getConfig().getString("Prefix");
+        String Prefix = MessagesConfig.get().getString("Prefix");
         String setinstantrestock = "Vtrades.InstantRestock";
         String setdemandpenalty = "Vtrades.DemandPenalty";
         String usage = "Vtrades.Usage";
@@ -62,14 +63,22 @@ public class Vtrades implements TabExecutor {
 
             if (args[0].equalsIgnoreCase("setinstantrestock")) {
 
-                Config.getConfig().set("Settings.VillagerTrades.InstantRestock", value);
-                Config.saveCf();
+              Config.get().set("Settings.VillagerTrades.InstantRestock", value);
+                try {
+                    Config.save();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
-                KeyUtils.sms(sender, formatMsg(sender,"%prefix% set InstantRestock to " + Config.getConfig().getString("Settings.VillagerTrades.InstantRestock")));
+                KeyUtils.sms(sender, formatMsg(sender,"%prefix% set InstantRestock to " + Config.get().getString("Settings.VillagerTrades.InstantRestock")));
             } else if (args[0].equalsIgnoreCase("setdemandpenalty")) {
-                Config.getConfig().set("Settings.VillagerTrades.DemandPenalty", value);
-                Config.saveCf();
-                KeyUtils.sms(sender, formatMsg(sender,"%prefix% set demand-penalty to " + Config.getConfig().getString("Settings.VillagerTrades.DemandPenalty")));
+              Config.get().set("Settings.VillagerTrades.DemandPenalty", value);
+                try {
+                    Config.save();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                KeyUtils.sms(sender, formatMsg(sender,"%prefix% set demand-penalty to " + Config.get().getString("Settings.VillagerTrades.DemandPenalty")));
             }
 
             return true;
