@@ -62,8 +62,9 @@ public class Socials implements TabExecutor {
                     }
                 }
             });
-
-            Bukkit.broadcast(KeyUtils.parse(broadcast.toString()));
+            Bukkit.getOnlinePlayers().forEach( p ->{
+                KeyUtils.sms(p, KeyUtils.ReplaceVariable(broadcast.toString(), null, p.getName() ));
+            });
             startSocialLoop();
 
         }, socialtimer*20L);

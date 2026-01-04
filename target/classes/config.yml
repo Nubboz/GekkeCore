@@ -1,11 +1,14 @@
+config-version: 1
+#TESTING AUTO UPDATES DONT MIND THIS
 
 Settings:
-  #seconds before socials are advertised (5 mins)
-  Socialstimer: 300
+  #Time inbetween socials announcment (5 mins default)
+  Socialstimer: 300 #SECONDS
   Socialslist:
     - youtube
     - discord
     - twitch
+  didlydoo:
   Vanish:
     FakeLeaveMessage: "&e%player% left the game"
     FakeJoinMessage: "&e%player% joined the game"
@@ -42,6 +45,7 @@ Settings:
 #         chance: 0.7 #= 70%
 #         maxuses: 12
 #         lvl: 3
+
 
 # Manage those who use xaeros minimap
 Xaero:

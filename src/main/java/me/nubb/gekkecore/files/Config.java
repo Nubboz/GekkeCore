@@ -18,14 +18,23 @@ public class Config {
     public static void load(GekkeCore plugin) throws IOException {
 
         config = YamlDocument.create(
-                new File(plugin.getDataFolder(), "config.yml"),   // File on disk
-                plugin.getResource("config.yml"),                 // Default in JAR
-                GeneralSettings.builder().setUseDefaults(true).build(),
-                UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")).build(),
-                LoaderSettings.builder().build(),
+                new File(plugin.getDataFolder(), "config.yml"),
+                plugin.getResource("config.yml"),
+
+                GeneralSettings.builder()
+                        .setUseDefaults(true)
+                        .build(),
+                DumperSettings.DEFAULT,
+                LoaderSettings.builder()
+                        .setAutoUpdate(true)
+                        .build(),
                 DumperSettings.builder().build(),
-                UpdaterSettings.builder().setAutoSave(true).build() // <-- auto-merge + save
+
+                UpdaterSettings.builder()
+                        .setAutoSave(true)       // <-- Save after updating
+                        .build()
         );
+
     }
 
     public static YamlDocument get() {
