@@ -6,6 +6,7 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -117,14 +118,16 @@ public class KeyUtils {
     public static String ReplaceVariable(String message, CommandSender sender, String target, String result, String list){
         String prefix = MessagesConfig.get().getString("Prefix");
         if (message.contains("%sender%")) {
-            if(sender instanceof Player) {
-                message = message.replaceAll("%sender%", sender.getName());
-            }else{
-                message = message.replaceAll("%sender%", "Console");
-            }
+            message =  message.replaceAll("%sender%", (sender instanceof Player) ? sender.getName() : "Console");
+        }
+        if (message.contains("%senderdisplay%")) {
+            message =  message.replaceAll("%sender%", (sender instanceof Player) ? ((Player) sender).getDisplayName() : "Console");
         }
         if (message.contains("%player%")) {
             message = message.replaceAll("%player%", Objects.requireNonNullElse(target, "N/A"));
+        }
+        if (message.contains("%playerdisplay%")) {
+            message = message.replaceAll("%player%", Objects.requireNonNullElse(Bukkit.matchPlayer(target).getFirst().getDisplayName(), "N/A"));
         }
         if (message.contains("%result%")) {
             message = message.replaceAll("%result%", Objects.requireNonNullElse(result, "N/A"));

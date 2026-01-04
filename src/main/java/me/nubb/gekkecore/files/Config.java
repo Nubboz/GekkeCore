@@ -1,6 +1,7 @@
 package me.nubb.gekkecore.files;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;
 import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
 import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
@@ -20,6 +21,7 @@ public class Config {
                 new File(plugin.getDataFolder(), "config.yml"),   // File on disk
                 plugin.getResource("config.yml"),                 // Default in JAR
                 GeneralSettings.builder().setUseDefaults(true).build(),
+                UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")).build(),
                 LoaderSettings.builder().build(),
                 DumperSettings.builder().build(),
                 UpdaterSettings.builder().setAutoSave(true).build() // <-- auto-merge + save
