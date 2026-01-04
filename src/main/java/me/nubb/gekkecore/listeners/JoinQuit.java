@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import javax.print.DocFlavor;
 import java.security.Key;
 
 public class JoinQuit implements Listener {
@@ -31,7 +32,7 @@ public class JoinQuit implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-
+        String  rawjoin = Config.get().getString("Settings.Vanish.JoinMessage");
         String joinMsg = KeyUtils.ReplaceVariable(Config.get().getString("Settings.Vanish.JoinMessage"), null, player.getName());
         // If the player is vanished
         if (Vanish.isVanished(player)) {
@@ -49,7 +50,7 @@ public class JoinQuit implements Listener {
             // Send the fake join message only to staff
 
             // Cancel the normal join message for everyone else
-        }else if (joinMsg != "none"){
+        }else if (!rawjoin.equalsIgnoreCase("none") && rawjoin != null){
             event.joinMessage(Component.text(joinMsg));
         }
         handlePlayerMode(player, player.getWorld().getName(), null);
@@ -110,7 +111,7 @@ public class JoinQuit implements Listener {
     public void onQuit(PlayerQuitEvent event) {
 
         Player player = event.getPlayer();
-
+        String rawleave = Config.get().getString("Settings.Vanish.LeaveMessage");
         String leave = KeyUtils.ReplaceVariable(Config.get().getString("Settings.Vanish.LeaveMessage"), null, player.getName());
 
         // If the player is vanished
@@ -125,7 +126,7 @@ public class JoinQuit implements Listener {
                     KeyUtils.sms(p,leave);
                 }
             }
-        }else if(leave != null){
+        }else if (!rawleave.equalsIgnoreCase("none") && rawleave != null){
             event.quitMessage(Component.text(leave));
         }
     }
