@@ -25,10 +25,20 @@ public class MessagesConfig {
         messagesconfig = YamlDocument.create(
                 new File(plugin.getDataFolder(), "messages.yml"),   // File on disk
                 plugin.getResource("messages.yml"),                 // Default in JAR
-                GeneralSettings.builder().setUseDefaults(true).build(),
-                LoaderSettings.builder().build(),
+
+
+                GeneralSettings.builder()
+                        .setUseDefaults(true)
+                        .build(),
+                DumperSettings.DEFAULT,
+                LoaderSettings.builder()
+                        .setAutoUpdate(true)
+                        .build(),
                 DumperSettings.builder().build(),
-                UpdaterSettings.builder().setAutoSave(true).build() // <-- auto-merge + save
+
+                UpdaterSettings.builder()
+                        .setAutoSave(true)       // <-- Save after updating
+                        .build()
         );
     }
 
