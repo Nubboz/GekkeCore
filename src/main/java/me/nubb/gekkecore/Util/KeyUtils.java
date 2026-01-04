@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -114,20 +116,47 @@ public class KeyUtils {
     public static String ReplaceVariable(String message, CommandSender sender, String target) {
         return ReplaceVariable(message, sender, target, null, null);
     }
+
+    public static String Serialize(Component text){
+        return LegacyComponentSerializer.legacyAmpersand().serialize(text);
+    }
+
+    public static String getteamprefix(Player plr){
+        Team team = Bukkit.getScoreboardManager().getMainScoreboard().getPlayerTeam(plr);
+        String teamprefix = team != null ? Serialize(team.prefix()) : "";
+        return teamprefix;
+    }
     
     public static String ReplaceVariable(String message, CommandSender sender, String target, String result, String list){
         String prefix = MessagesConfig.get().getString("Prefix");
+        Player targetplr = Bukkit.matchPlayer(target).getFirst();
+        String targetdisplay = Serialize( targetplr.displayName());
+        String targetprefix = targetdisplay.replaceAll(targetplr.getName(), "").replaceAll(" {2}", " ");
+        String senderdisplay = (sender instanceof Player) ?  LegacyComponentSerializer.legacySection().serialize(((Player) sender).displayName()) : "Console";
+        String senderprefix = senderdisplay.replaceAll(((sender instanceof Player) ? sender.getName() : "Console"), "").replaceAll(" {2}", " ");
         if (message.contains("%sender%")) {
             message =  message.replaceAll("%sender%", (sender instanceof Player) ? sender.getName() : "Console");
         }
-        if (message.contains("%senderdisplay%")) {
-            message =  message.replaceAll("%sender%", (sender instanceof Player) ? ((Player) sender).getDisplayName() : "Console");
+        if (message.contains("%sender_display%")) {
+            message =  message.replaceAll("%sender_display%", senderdisplay);
+        }
+        if (message.contains("%sender_prefix%")) {
+            message = message.replaceAll("%sender_prefix%", Objects.requireNonNullElse(senderprefix, "N/A"));
+        }
+        if (message.contains("%sender_team%")) {
+            message = message.replaceAll("%player_team%", Objects.requireNonNullElse(getteamprefix((Player) sender), ""));
         }
         if (message.contains("%player%")) {
             message = message.replaceAll("%player%", Objects.requireNonNullElse(target, "N/A"));
         }
-        if (message.contains("%playerdisplay%")) {
-            message = message.replaceAll("%player%", Objects.requireNonNullElse(Bukkit.matchPlayer(target).getFirst().getDisplayName(), "N/A"));
+        if (message.contains("%player_display%")) {
+            message = message.replaceAll("%player_display%", Objects.requireNonNullElse(targetdisplay, "N/A"));
+        }
+        if (message.contains("%player_prefix%")) {
+            message = message.replaceAll("%player_prefix%", Objects.requireNonNullElse(targetprefix, ""));
+        }
+        if (message.contains("%player_team%")) {
+            message = message.replaceAll("%player_team%", Objects.requireNonNullElse(getteamprefix(targetplr), ""));
         }
         if (message.contains("%result%")) {
             message = message.replaceAll("%result%", Objects.requireNonNullElse(result, "N/A"));
