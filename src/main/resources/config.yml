@@ -6,7 +6,7 @@ Settings:
     - youtube
     - twitch
   Vanish:
-    #to "none" to use default minecraft message
+    #set to "none" to use default minecraft message
     LeaveMessage: "none"
     JoinMessage: "none"
 
