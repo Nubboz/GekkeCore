@@ -28,13 +28,11 @@ public class Config {
                 LoaderSettings.builder()
                         .setAutoUpdate(true)
                         .build(),
-                DumperSettings.builder().build(),
 
                 UpdaterSettings.builder()
                         .setAutoSave(true)       // <-- Save after updating
                         .build()
         );
-
     }
 
     public static YamlDocument get() {

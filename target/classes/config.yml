@@ -1,18 +1,21 @@
-config-version: 1
-#TESTING AUTO UPDATES DONT MIND THIS
-
 Settings:
   #Time inbetween socials announcment (5 mins default)
   Socialstimer: 300 #SECONDS
   Socialslist:
-    - youtube
     - discord
+    - youtube
     - twitch
-  didlydoo:
   Vanish:
-    FakeLeaveMessage: "&e%player% left the game"
-    FakeJoinMessage: "&e%player% joined the game"
-    SilentJoinMessage: "&8%player% &3Silently joined the game" #only admins can see
+    #to "none" to use default minecraft message
+    LeaveMessage: "none"
+    JoinMessage: "none"
+
+    FakeLeaveMessage: "%player_team% &e%player% left the game"
+    FakeJoinMessage: "%player_team% &e%player% joined the game"
+
+    SilentLeaveMessage: "&7%player% &3Silently Left the game" #only admins can see
+    SilentJoinMessage: "&7%player% &3Silently joined the game" #only admins can see
+
     HideFromCommands: true
     HiddenCommands:
       - tpa
@@ -37,7 +40,7 @@ Settings:
 #         currency: emerald
 #         chance: 0.5
 #         maxuses: 25
-#         lvl: 5
+#         lvl: 5  #level the villager has to be (1=Novice, 2=apprentice ...) max 5
 #       redstone:
 #         amount: 4
 #         price: 2

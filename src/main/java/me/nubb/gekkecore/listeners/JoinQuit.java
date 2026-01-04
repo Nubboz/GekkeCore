@@ -1,16 +1,20 @@
 package me.nubb.gekkecore.listeners;
 
+import dev.dejvokep.boostedyaml.libs.org.snakeyaml.engine.v2.api.lowlevel.Serialize;
 import me.nubb.gekkecore.GekkeCore;
 import me.nubb.gekkecore.Util.KeyUtils;
 import me.nubb.gekkecore.commands.Vanish;
 import me.nubb.gekkecore.files.Config;
 import me.nubb.gekkecore.files.MessagesConfig;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import java.security.Key;
 
 public class JoinQuit implements Listener {
 
@@ -28,6 +32,7 @@ public class JoinQuit implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        String joinMsg = KeyUtils.ReplaceVariable(Config.get().getString("Settings.Vanish.JoinMessage"), null, player.getName());
         // If the player is vanished
         if (Vanish.isVanished(player)) {
 
@@ -36,19 +41,16 @@ public class JoinQuit implements Listener {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (!p.hasPermission("gekkecore.vanish.see"))
                     p.hidePlayer(plugin, player);
+                else {
+                    KeyUtils.sms(p, joinMsg);
+                }
             }
 
             // Send the fake join message only to staff
 
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                if (p.hasPermission("gekkecore.vanish.see")) {
-
-                    String joinMsg = KeyUtils.ReplaceVariable( Config.get().getString("Settings.Vanish.SilentJoinMessage"), p, player.getName());
-                    p.sendMessage(joinMsg);
-                }
-            }
-
             // Cancel the normal join message for everyone else
+        }else if (joinMsg != "none"){
+            event.joinMessage(Component.text(joinMsg));
         }
         handlePlayerMode(player, player.getWorld().getName(), null);
     }
@@ -106,11 +108,25 @@ public class JoinQuit implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
+
         Player player = event.getPlayer();
 
-        // Fake leave message for vanished players
+        String leave = KeyUtils.ReplaceVariable(Config.get().getString("Settings.Vanish.LeaveMessage"), null, player.getName());
+
+        // If the player is vanished
         if (Vanish.isVanished(player)) {
+
             event.quitMessage(null);
+
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (!p.hasPermission("gekkecore.vanish.see"))
+                    p.hidePlayer(plugin, player);
+                else {
+                    KeyUtils.sms(p,leave);
+                }
+            }
+        }else if(leave != null){
+            event.quitMessage(Component.text(leave));
         }
     }
 }

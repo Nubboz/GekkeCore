@@ -43,7 +43,7 @@ public final class GekkeCore extends JavaPlugin implements Listener {
 
         KeyUtils.sms(getServer().getConsoleSender(), """
                 
-                &8   [&3GekkeCore&8] &av: 0
+                &8   [&4GekkeCore&8] &av: 0
                 &8    Loaded
                 
                 """);
@@ -56,7 +56,7 @@ public final class GekkeCore extends JavaPlugin implements Listener {
 
         KeyUtils.sms(getServer().getConsoleSender(), """
                 
-                &8   [&3GekkeCore&8] &av: 0
+                &8   [&4GekkeCore&8] &av: 0
                 &8    Unloaded
                 
                 """);
@@ -94,14 +94,14 @@ public final class GekkeCore extends JavaPlugin implements Listener {
             if (args.length == 0) {
                 KeyUtils.sms(sender, """
                         
-                        &3GekkeCore
+                        &4GekkeCore
                         
-                         &3Version: &f0 &7(Unreleased)
-                         &3Author: &fNubb__
-                         &3Discord: &fnubb__
-                         &3Help: &f/gekkecore help
+                         &4Version: &f0 &7(Unreleased)
+                         &4Author: &fNubb__
+                         &4Discord: &fnubb__
+                         &4Help: &f/gekkecore help
                         
-                        &3Disclaimer!
+                        &4Disclaimer!
                          &fGekkeCore is still in beta so please report any issues or suggestions to the discord above.
                         
                         """);
@@ -118,7 +118,7 @@ public final class GekkeCore extends JavaPlugin implements Listener {
                         for (Player online : Bukkit.getOnlinePlayers()) {
                             JoinQuit.handlePlayerMode(online, online.getWorld().getName(), null);
                         }
-                        KeyUtils.sms(sender, "&3GekkeCore has been reloaded");
+                        KeyUtils.sms(sender, "&4GekkeCore has been reloaded");
                     }else{
                         KeyUtils.sms(sender, "&cYou dont have permission to execute this command");
                     }
@@ -127,9 +127,9 @@ public final class GekkeCore extends JavaPlugin implements Listener {
                         if (sender.hasPermission("gekkecore.admin")) {
                             KeyUtils.sms(sender, """
                                 
-                                &3GekkeCore &fby &3Nubb__
+                                &4GekkeCore &fby &4Nubb__
                                 
-                                &3Help:
+                                &4Help:
                                  &f/gekkecore reload &7#Reloads all configs
                                  &f/Vanish <player> &7#Puts specified player in vanish mode
                                  &f/Vtrades <setinstantrestock/setdemandpenalty> true/false &7#Edit villager trading behaviour
@@ -139,9 +139,9 @@ public final class GekkeCore extends JavaPlugin implements Listener {
                         }else{
                             KeyUtils.sms(sender, """
                                     
-                                    &3GekkeCore &fby &3Nubb__
+                                    &4GekkeCore &fby &4Nubb__
                                     
-                                    &3Help:
+                                    &4Help:
                                      &7no player commands
                                     
                                                          &f<<1/1>>
@@ -150,9 +150,9 @@ public final class GekkeCore extends JavaPlugin implements Listener {
                     }else{
                         KeyUtils.sms(sender, """
                                 
-                                &3GekkeCore &fby &3Nubb__
+                                &4GekkeCore &fby &4Nubb__
                                 
-                                &3Help:
+                                &4Help:
                                 
                                  &f/gekkecore reload &7#Reloads all configs
                                  &f/Vanish <player> &7#Puts specified player in vanish mode

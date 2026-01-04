@@ -70,7 +70,8 @@ public class Vtrades implements TabExecutor {
                     throw new RuntimeException(e);
                 }
 
-                KeyUtils.sms(sender, formatMsg(sender,"%prefix% set InstantRestock to " + Config.get().getString("Settings.VillagerTrades.InstantRestock")));
+
+                KeyUtils.sms(sender, formatMsg(sender,setinstantrestock, null, String.valueOf(value), null));
             } else if (args[0].equalsIgnoreCase("setdemandpenalty")) {
               Config.get().set("Settings.VillagerTrades.DemandPenalty", value);
                 try {
@@ -78,12 +79,13 @@ public class Vtrades implements TabExecutor {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                KeyUtils.sms(sender, formatMsg(sender,"%prefix% set demand-penalty to " + Config.get().getString("Settings.VillagerTrades.DemandPenalty")));
+                KeyUtils.sms(sender, formatMsg(sender,setdemandpenalty, null, String.valueOf(value), null));
             }
 
             return true;
         }
-        return false;
+        KeyUtils.sms(sender,usage);
+        return true;
     }
 
 

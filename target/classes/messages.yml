@@ -1,4 +1,4 @@
-Prefix: "&8[GekkeCore] "
+Prefix: "&8[&4GekkeCore&8]&r"
 
 #//////////////////////////////////
 #//         VARIABLES            //
@@ -7,8 +7,14 @@ Prefix: "&8[GekkeCore] "
 # %prefix%: displays whatever you set the prefix to above
 
 # %player%: displays targeted players name (do not use if command does not have a targetted player)
-#
+# %player_display%: players full display name
+# %player_prefix%: players chat prefixes
+# %player_team%: players team prefix
+
 # %sender%: displays command executors name
+# %sender_display%: senders full display name
+# %sender_prefix%: senders chat prefixes
+# %sender_team%: senders team prefix
 
 # %time%: displays how long player must wait until cooldown is over (only used for "/hide"'s wait message right now)
 
@@ -28,8 +34,13 @@ Vanish:
   UnvanishedMessage: "&fYou &7are no longer &fvanished"
   OtherVanishedMessage: "&f%player% &7is now &fvanished"
   OtherUnvanishedMessage: "&f%player% &7is no longer &fvanished"
-  VanishUsage: "&cUsage&8: &7/vanish <player>"
+  VanishUsage: "&cUsage&8: &7/vanish <&fplayer&7>"
   NotOnline: "&cError: &4Player not found."
+
+Vtrades:
+  InstantRestock: '%prefix% &7set Instant-Restock to &r%result%'
+  DemandPenalty: '%prefix% &7set Demand-Penalty to &r%result%'
+  VanishUsage: '&cUsage&8: &7/vtrades &fsetinstantrestock&7/&fsetdemandpenalty true&7/&ffalse'
 
 #Set Any socials you don't want to "none"
 

@@ -4,6 +4,7 @@ import me.nubb.gekkecore.GekkeCore;
 import me.nubb.gekkecore.Util.KeyUtils;
 import me.nubb.gekkecore.files.Config;
 import me.nubb.gekkecore.files.MessagesConfig;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class Vanish implements CommandExecutor, TabCompleter, Listener {
     // ----------------------------------------------------------
@@ -83,20 +85,28 @@ public class Vanish implements CommandExecutor, TabCompleter, Listener {
 
             toggleVanish(target);
 
-            if (isVanished(target)) {
-                KeyUtils.sms(sender, KeyUtils.ReplaceVariable(otherVanishedMsg, sender, target.getName() ));
-            } else {
-                KeyUtils.sms(sender, KeyUtils.ReplaceVariable(otherUnvanishedMsg, sender, target.getName() ));
-            }
+            KeyUtils.sms(
+                    sender,
+                    KeyUtils.ReplaceVariable(
+                            isVanished(target) ? otherVanishedMsg:otherUnvanishedMsg, sender, target.getName()
+                    )
+            );
+            KeyUtils.sms(
+                    target,
+                    KeyUtils.ReplaceVariable(
+                            isVanished(target) ? vanishedMsg:unvanishedMsg, sender, target.getName()
+                    )
+            );
             return true;
         } else if (args.length==0) {
             toggleVanish(player);
 
-            if (isVanished(player)) {
-                KeyUtils.sms(sender, KeyUtils.ReplaceVariable(vanishedMsg, sender, player.getName() ));
-            } else {
-                KeyUtils.sms(sender, KeyUtils.ReplaceVariable(unvanishedMsg, sender, player.getName() ));
-            }
+            KeyUtils.sms(
+                    sender,
+                    KeyUtils.ReplaceVariable(
+                            isVanished(player) ? vanishedMsg:unvanishedMsg, sender, player.getName()
+                    )
+            );
         }
         return true;
     }
@@ -112,15 +122,24 @@ public class Vanish implements CommandExecutor, TabCompleter, Listener {
             vanished.remove(target.getUniqueId());
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.showPlayer(plugin, target);
-                KeyUtils.sms(p, KeyUtils.ReplaceVariable(joinmsg,p,target.getName()));
+
             }
+            Bukkit.broadcast(
+                    KeyUtils.parse(
+                            KeyUtils.ReplaceVariable(
+                                    joinmsg,null,target.getName()
+                            ).trim()));
         } else {
             vanished.put(target.getUniqueId(), true);
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (!p.hasPermission("gekkecore.vanish.see"))
                     p.hidePlayer(plugin, target);
-                KeyUtils.sms(p, KeyUtils.ReplaceVariable(leavemsg,p,target.getName()));
             }
+            Bukkit.broadcast(
+                    KeyUtils.parse(
+                            KeyUtils.ReplaceVariable(
+                                    leavemsg,null,target.getName()
+                            ).trim()));
         }
     }
 
