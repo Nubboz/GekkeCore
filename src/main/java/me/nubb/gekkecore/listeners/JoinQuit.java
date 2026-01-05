@@ -34,6 +34,7 @@ public class JoinQuit implements Listener {
         Player player = event.getPlayer();
         String  rawjoin = Config.get().getString("Settings.Vanish.JoinMessage");
         String joinMsg = KeyUtils.ReplaceVariable(Config.get().getString("Settings.Vanish.JoinMessage"), null, player.getName());
+        String SjoinMsg = KeyUtils.ReplaceVariable(Config.get().getString("Settings.Vanish.SilentJoinMessage"), null, player.getName());
         // If the player is vanished
         if (Vanish.isVanished(player)) {
 
@@ -113,6 +114,7 @@ public class JoinQuit implements Listener {
         Player player = event.getPlayer();
         String rawleave = Config.get().getString("Settings.Vanish.LeaveMessage");
         String leave = KeyUtils.ReplaceVariable(Config.get().getString("Settings.Vanish.LeaveMessage"), null, player.getName());
+        String Sleave = KeyUtils.ReplaceVariable(Config.get().getString("Settings.Vanish.SilentLeaveMessage"), null, player.getName());
 
         // If the player is vanished
         if (Vanish.isVanished(player)) {
