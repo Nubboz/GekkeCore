@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
+import java.security.Key;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

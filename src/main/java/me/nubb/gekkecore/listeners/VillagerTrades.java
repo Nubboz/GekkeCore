@@ -31,7 +31,7 @@ public class VillagerTrades implements Listener {
 
 
     String key = "trade_";
-/*    @EventHandler(priority = EventPriority.LOWEST)
+/*
     public void ontrade(PlayerTradeEvent e) {
 
         MerchantRecipe recipe = (MerchantRecipe) e.getTrade();

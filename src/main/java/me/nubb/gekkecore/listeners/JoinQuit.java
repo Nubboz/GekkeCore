@@ -10,6 +10,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -29,7 +30,7 @@ public class JoinQuit implements Listener {
         return MessagesConfig.get().getString(path);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         String  rawjoin = Config.get().getString("Settings.Vanish.JoinMessage");
@@ -44,7 +45,7 @@ public class JoinQuit implements Listener {
                 if (!p.hasPermission("gekkecore.vanish.see"))
                     p.hidePlayer(plugin, player);
                 else {
-                    KeyUtils.sms(p, joinMsg);
+                    KeyUtils.sms(p,SjoinMsg);
                 }
             }
 
@@ -52,7 +53,7 @@ public class JoinQuit implements Listener {
 
             // Cancel the normal join message for everyone else
         }else if (!rawjoin.equalsIgnoreCase("none") && rawjoin != null){
-            event.joinMessage(Component.text(joinMsg));
+            event.joinMessage(KeyUtils.parse(joinMsg));
         }
         handlePlayerMode(player, player.getWorld().getName(), null);
     }
@@ -125,11 +126,11 @@ public class JoinQuit implements Listener {
                 if (!p.hasPermission("gekkecore.vanish.see"))
                     p.hidePlayer(plugin, player);
                 else {
-                    KeyUtils.sms(p,leave);
+                    KeyUtils.sms(p,Sleave);
                 }
             }
         }else if (!rawleave.equalsIgnoreCase("none") && rawleave != null){
-            event.quitMessage(Component.text(leave));
+            event.quitMessage(KeyUtils.parse(leave));
         }
     }
 }

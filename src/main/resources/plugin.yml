@@ -12,6 +12,7 @@ commands:
   GekkeCore:
     description: "GekkeCore!"
     usage: "Usage: /gekkecore help"
+    permission: gekkecore.use
 
   Vanish:
     description: "Hide yourself from players!"

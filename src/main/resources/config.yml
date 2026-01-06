@@ -1,3 +1,5 @@
+config-version: '21'
+
 Settings:
   #Time inbetween socials announcment (5 mins default)
   Socialstimer: 300 #SECONDS
@@ -10,8 +12,8 @@ Settings:
     LeaveMessage: "none"
     JoinMessage: "none"
 
-    FakeLeaveMessage: "%player_team% &e%player% left the game"
-    FakeJoinMessage: "%player_team% &e%player% joined the game"
+    FakeLeaveMessage: "&e%player% left the game"
+    FakeJoinMessage: "&e%player% joined the game"
 
     SilentLeaveMessage: "&7%player% &3Silently Left the game" #only admins can see
     SilentJoinMessage: "&7%player% &3Silently joined the game" #only admins can see
@@ -32,8 +34,8 @@ Settings:
     DemandPenalty: true
     InstantRestock: false
 
-    AddedTrades: {}
-#     cleric: {}
+    AddedTrades:
+#     cleric:
 #       gunpowder:
 #         amount: 5
 #         price: 3
